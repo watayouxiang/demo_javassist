@@ -61,37 +61,37 @@ class ModifyTransform extends Transform {
             pool.appendClassPath(it.absolutePath)
         }
 
-        // 1、拿到输入
         transformInvocation.inputs.each {
 
-            // DirectoryInput 类型的输入
+            // 1、拿到 DirectoryInput 类型的输入
             it.directoryInputs.each {
                 def preFileName = it.file.absolutePath
                 pool.insertClassPath(preFileName)
-                println "directoryInputs ----------------> " + preFileName
+                println "DirectoryInput ----------------> " + preFileName
                 findTarget(it.file, preFileName)
-                // 2、查询输出的文件夹
+                // 2、获取输出的文件夹
                 def dest = transformInvocation.outputProvider.getContentLocation(
                         it.name,
                         it.contentTypes,
                         it.scopes,
                         Format.DIRECTORY
                 )
-                // 3、文件copy
+                // 3、将输入文件拷贝到输出文件夹
                 FileUtils.copyDirectory(it.file, dest)
             }
 
-            // JarInput 类型的输入
+            // 1、拿到 JarInput 类型的输入
             it.jarInputs.each {
+                // 2、获取输出的文件夹
                 def dest = transformInvocation.outputProvider.getContentLocation(
                         it.name,
                         it.contentTypes,
                         it.scopes,
                         Format.JAR
                 )
+                // 3、将输入文件拷贝到输出文件夹
                 FileUtils.copyFile(it.file, dest)
             }
-
         }
     }
 
@@ -116,10 +116,18 @@ class ModifyTransform extends Transform {
                 || filePath.contains("BuildConfig.class")) {
             return
         }
+
         // 获取 .class 的文件名
         def className = filePath.replace(fileName, "").replace("\\", ".").replace("/", ".")
         def name = className.replace(".class", "").substring(1)
+
+        // /Users/TaoWang/Desktop/javassist_demo/javassist_android_demo/app/build/intermediates/javac/debug/classes/com/watayouxiang/javassistdemo/MainActivity.class
+        println "filePath -------------> " + filePath
+        // /Users/TaoWang/Desktop/javassist_demo/javassist_android_demo/app/build/intermediates/javac/debug/classes
+        println "fileName -------------> " + fileName
+        // com.watayouxiang.javassistdemo.MainActivity
         println "name -------------> " + name
+
         // 给 .class 文件添加代码
         CtClass ctClass = pool.get(name)
         addCode(ctClass, fileName)
