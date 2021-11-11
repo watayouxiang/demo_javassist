@@ -150,7 +150,7 @@ class ModifyTransform extends Transform {
                 method.insertBefore("{ System.out.println(\$1); System.out.println(\$2);}")
             }
             if (method.getParameterTypes().length == 3) {
-                method.insertBefore("{ System.out.println(\$1);System.out.println(\$2);System.out.println(\\\$3);}")
+                method.insertBefore("{ System.out.println(\$1); System.out.println(\$2); System.out.println(\$3);}")
             }
         }
         // 将修改后的代码写回去

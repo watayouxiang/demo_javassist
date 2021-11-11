@@ -12,11 +12,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-//    private void test2(int a, int b) {
-//
-//    }
+    public void test2(String a, String b) {
 
-//    private void test3(int a, int b, int c) {
-//
-//    }
+    }
+
+    public void test3(String a, String b, String c) {
+
+    }
 }
