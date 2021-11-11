@@ -2,12 +2,12 @@ package com.watayouxiang.learn.javassist;
 
 import javassist.*;
 
-public class CreatePerson {
+public class TestCreateClass {
 
     /**
-     * 创建一个Person 对象
+     * 创建一个 Person.class 文件
      */
-    public static void createPseson() throws Exception {
+    public static CtClass createPersonClass() throws Exception {
         ClassPool pool = ClassPool.getDefault();
 
         // 1. 创建一个空类
@@ -44,11 +44,13 @@ public class CreatePerson {
 
         // 这里会将这个创建的类对象编译为.class文件
         cc.writeFile("/Users/TaoWang/Desktop/javassist_demo/javassist_java_demo/src/main/java/");
+        return cc;
     }
+
 
     public static void main(String[] args) {
         try {
-            createPseson();
+            createPersonClass();
         } catch (Exception e) {
             e.printStackTrace();
         }
