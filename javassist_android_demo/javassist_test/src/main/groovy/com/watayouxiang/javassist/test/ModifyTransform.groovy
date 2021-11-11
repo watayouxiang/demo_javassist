@@ -26,7 +26,7 @@ class ModifyTransform extends Transform {
      */
     @Override
     String getName() {
-        return "david"
+        return "watayouxiang"
     }
 
     /**
@@ -52,10 +52,6 @@ class ModifyTransform extends Transform {
 
     /**
      * 处理 class 文件
-     * @param transformInvocation
-     * @throws TransformException
-     * @throws InterruptedException
-     * @throws IOException
      */
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
